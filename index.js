@@ -15,3 +15,26 @@ fetch("https://apis.scrimba.com/jsonplaceholder/posts")
         }
         document.getElementById("blog-list").innerHTML = html
     })
+
+    document.getElementById("new-post").addEventListener("submit", function(e) {
+    e.preventDefault()
+    const postTitle = document.getElementById("post-title").value
+    const postBody = document.getElementById("post-body").value
+    const data = {
+        title: postTitle,
+        body: postBody
+    }
+
+    fetch("https://apis.scrimba.com/jsonplaceholder/posts", {
+    method: "POST",
+    body: JSON.stringify({data}),
+    
+    // with out the console will display a ID VS the object data we are trying to pass, the header is telling the response to convert into JSON data, in return the object data will display
+    headers: {
+        "Content-Type": "application/json"
+    }
+})
+    .then(res => res.json())
+    .then(data => console.log(data))
+    console.log(data)
+})
