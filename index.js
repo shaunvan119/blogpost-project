@@ -45,5 +45,8 @@ document.getElementById("new-post").addEventListener("submit", function(e) {
             //rendering the post
             postsArray.unshift(post)
             renderPosts()
+            //clears input field 
+            document.getElementById("post-title").value = "";
+            document.getElementById("post-body").value = "";
         })
 })
