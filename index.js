@@ -16,7 +16,7 @@ fetch("https://apis.scrimba.com/jsonplaceholder/posts")
         document.getElementById("blog-list").innerHTML = html
     })
 
-    document.getElementById("new-post").addEventListener("submit", function(e) {
+document.getElementById("new-post").addEventListener("submit", function(e) {
     e.preventDefault()
     const postTitle = document.getElementById("post-title").value
     const postBody = document.getElementById("post-body").value
@@ -24,17 +24,23 @@ fetch("https://apis.scrimba.com/jsonplaceholder/posts")
         title: postTitle,
         body: postBody
     }
-
-    fetch("https://apis.scrimba.com/jsonplaceholder/posts", {
-    method: "POST",
-    body: JSON.stringify({data}),
     
-    // with out the console will display a ID VS the object data we are trying to pass, the header is telling the response to convert into JSON data, in return the object data will display
-    headers: {
-        "Content-Type": "application/json"
+    const options = {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json"
+        }
     }
-})
-    .then(res => res.json())
-    .then(data => console.log(data))
-    console.log(data)
+    
+    fetch("https://apis.scrimba.com/jsonplaceholder/posts", options)
+        .then(res => res.json())
+        .then(post => {
+            //rendering the post
+            document.getElementById("blog-list").innerHTML = `
+                <h3>${post.title}</h3>
+                <p>${post.body}</p>
+                <hr />
+            `
+        })
 })
